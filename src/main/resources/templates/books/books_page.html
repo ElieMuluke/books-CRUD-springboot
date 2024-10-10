@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles/style.css" />
+		<title>Books</title>
+	</head>
+	<body class="body">
+		<div th:insert="~{parts/navigation::navigation}"></div>
+		<div class="content">
+			<h1>Books</h1>
+			<div>
+				<a href="/books/create">Add New Book</a>
+			</div>
+			<p th:if="${#lists.isEmpty(books)}">
+				No books found with keyword: "<span
+					style="font-weight: bold"
+					th:text="${search}"
+				></span
+				>"
+			</p>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Year</th>
+					<th>Action</th>
+				</tr>
+				<th:block th:each="book : ${books}">
+					<tr>
+						<td th:text="${book.id}"></td>
+						<td th:text="${book.title}"></td>
+						<td th:text="${book.author}"></td>
+						<td th:text="${book.year}"></td>
+						<td>
+							<a th:href="@{|/books/edit/${book.title}|}">Edit</a>
+							<a th:href="@{|/books/deleteBook/${book.title}|}">Delete</a>
+						</td>
+					</tr></th:block
+				>
+			</table>
+		</div>
+		<div th:insert="~{parts/footer::footer}"></div>
+	</body>
+</html>
